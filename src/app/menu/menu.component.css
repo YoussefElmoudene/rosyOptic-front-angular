@@ -1,0 +1,21 @@
+.nav-item{
+  margin-right: 40px;
+}
+
+.nav-link{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: large;
+  font-weight: bold;
+  color: #000000 !important;
+
+}
+
+.nav-link:hover{
+  color: #f72585  !important;
+}
+
+#navbarScroll ul li a:link.changeColor {
+  border-bottom: 5px solid #f72585 !important;
+  padding:0;
+  font-size: larger;
+}
