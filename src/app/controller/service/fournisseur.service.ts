@@ -74,5 +74,16 @@ export class FournisseurService {
           console.log(error.error.message);
         });
     }
+    this.fournisseur = new Fournisseur();
+  }
+
+  public findAll() {
+    this.http.get<Array<Fournisseur>>(this.urlBase + this.url + '/').subscribe(
+      data => {
+        this.fournisseurs = data;
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 }

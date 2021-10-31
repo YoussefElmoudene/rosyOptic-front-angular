@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Client} from "../model/client";
 import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
 import {environment} from "../../../environments/environment";
+import {Client} from "../model/client";
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -62,9 +63,9 @@ export class ClientService {
 
   public save() {
     if (this.client.id == 0){
-      this.http.post(this.urlBase + this.url + '/' , this.client).subscribe(
+      this.http.post<Client>(this.urlBase + this.url + '/' , this.client).subscribe(
         data => {
-          this.clients.push(this.clone(this.client));
+          this.clients.push({...data});
         }, error => {
           console.log(error);
         });
@@ -87,5 +88,9 @@ export class ClientService {
         console.log(error);
       }
     );
+  }
+
+  findById(id: number): Observable<Client> {
+    return  this.http.get<Client>(this.urlBase + this.url + '/id/' + id );
   }
 }

@@ -3,6 +3,7 @@ import {LunetteSoleil} from "../model/lunette-soleil";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
+import {Monture} from "../model/monture";
 
 @Injectable({
   providedIn: 'root'
@@ -52,9 +53,8 @@ export class LunetteService {
     myClone.qte = lunette.qte;
     myClone.price = lunette.price;
     myClone.marque = lunette.marque;
-    myClone.fourisseur = lunette.fourisseur;
+    myClone.fournisseur = lunette.fournisseur;
     myClone.etat = lunette.etat;
-    myClone.client = lunette.client;
     myClone.buyingDate = lunette.buyingDate;
     return myClone;
   }
@@ -63,9 +63,14 @@ export class LunetteService {
     if (this.lunette.id == 0){
       this.http.post(this.urlBase + this.url + '/' , this.lunette).subscribe(
         data => {
-          this.lunettes.push(this.clone(this.lunette));
+          if (data == -1){
+            alert("Error: Fournisseur n'existe pas !" );
+          }else{
+            this.lunettes.push(this.clone(this.lunette));
+          }
+
         }, error => {
-          console.log(error.error.message);
+          console.log(error);
         });
     } else {
       this.http.post<number>(this.urlBase + this.url + '/', this.lunette).subscribe(
@@ -75,6 +80,18 @@ export class LunetteService {
           console.log(error.error.message);
         });
     }
+    this.lunette = new LunetteSoleil();
   }
+
+  public findAll() {
+    this.http.get<Array<LunetteSoleil>>(this.urlBase + this.url + '/').subscribe(
+      data => {
+        this.lunettes = data;
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
 
 }

@@ -3,6 +3,7 @@ import {Monture} from "../model/monture";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
+import {Verres} from "../model/verres";
 
 @Injectable({
   providedIn: 'root'
@@ -46,16 +47,14 @@ export class MontureService {
   public clone(monture: Monture): Monture {
     const myClone: Monture = new Monture();
     myClone.id = monture.id;
-    myClone.barCode = monture.barCode;
     myClone.series = monture.series;
     myClone.sellingDate = monture.sellingDate;
     myClone.stock = monture.stock;
-    myClone.prix = monture.prix;
+    myClone.price = monture.price;
     myClone.marque = monture.marque;
     myClone.modele = monture.modele;
     myClone.etat = monture.etat;
     myClone.fournisseur = monture.fournisseur;
-    myClone.client = monture.client;
     myClone.buyingDate = monture.buyingDate;
     myClone.priceTotale = monture.priceTotale;
 
@@ -66,9 +65,15 @@ export class MontureService {
     if (this.monture.id == 0){
       this.http.post(this.urlBase + this.url + '/' , this.monture).subscribe(
         data => {
-          this.montures.push(this.clone(this.monture));
+          if (data === 0){
+            this.montures.push(this.clone(this.monture));
+          }else if (data == -1){
+            alert("Error : Client n'existe pas !");
+          }else {
+            alert("Error : Fournisseur n'existe pas !");
+          }
         }, error => {
-          console.log(error.error.message);
+          console.log(error);
         });
     } else {
       this.http.post<number>(this.urlBase + this.url + '/', this.monture).subscribe(
@@ -78,6 +83,17 @@ export class MontureService {
           console.log(error.error.message);
         });
     }
+    this.monture = new Monture();
+  }
+
+  public findAll() {
+    this.http.get<Array<Monture>>(this.urlBase + this.url + '/').subscribe(
+      data => {
+        this.montures = data;
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 
 }

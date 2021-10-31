@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row shadow p-2 mb-5  rounded">
+
+    <div class="col-md-4">
+      <form class="form-inline my-2 my-lg-0 justify-content-center">
+        <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
+               (ngModelChange)="searchfournisseurs(searchInput.value)" type="search"
+               placeholder="Recherche fournisseur..">
+      </form>
+    </div>
+
+
+    <div class="col-md-8">
+      <button routerLink="fournisseur-create" class="btn btn-outline"><i class="fa fa-plus-circle"></i>nouveau fournisseur
+      </button>
+    </div>
+  </div>
+
+
+  <!-- stations table -->
+
+  <div class="row row1">
+    <table class="table table-hover  table-borderless shadow p-3 mb-5 rounded">
+      <thead>
+      <tr class="text-center">
+        <th>Nom</th>
+        <th>Adresse</th>
+        <th>Localité</th>
+        <th>Téléphone</th>
+        <th>E-mail</th>
+        <th>Téléphone Fix</th>
+        <th>Action</th>
+
+      </tr>
+      </thead>
+      <tbody *ngFor="let fournisseur of fournisseurs index as i">
+      <tr class="text-center">
+        <td>{{fournisseur?.name}}</td>
+        <td>{{fournisseur?.adresse}}</td>
+        <td>{{fournisseur?.localite}}</td>
+        <td>{{fournisseur?.telephone}}</td>
+        <td>{{fournisseur?.email}}</td>
+        <td>{{fournisseur?.fix}}</td>
+        <td class="">
+          <div class="btn-group">
+            <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm btn-outline-info" (click)="open(content, fournisseur)"><i class="fa fa-info"></i></button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{fournisseur.name}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>

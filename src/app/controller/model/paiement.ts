@@ -1,3 +1,5 @@
+import {Fournisseur} from "./fournisseur";
+
 export class Paiement {
 
   public  id: number;
@@ -7,6 +9,7 @@ export class Paiement {
   public  montantTotale: number;
   public  totalPay: number;
   public  restAPay: number;
+  public fournisseur: Fournisseur = new Fournisseur();
 
   constructor() {
     this.id = 0;

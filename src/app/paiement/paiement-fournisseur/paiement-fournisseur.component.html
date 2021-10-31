@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row shadow p-2 mb-5  rounded">
+
+    <div class="col-md-4">
+      <form class="form-inline my-2 my-lg-0 justify-content-center">
+        <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
+               (ngModelChange)="searchPaiement(searchInput.value)" type="search"
+               placeholder="Recherche paiement..">
+      </form>
+    </div>
+
+    <div class="col-md-8">
+      <div class="dropdown">
+        <a class="btn dropdown-toggle"  role="button" id="dropdownMenuLink"
+           data-bs-toggle="dropdown" aria-expanded="false" (click)="this.findAll()">
+         Type de paiement
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class=" btn dropdown-item" (click)="dataFilter(2)" >Payer</a></li>
+          <li><a class="btn dropdown-item"  (click)="dataFilter(3)">Reste a payé</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- stations table -->
+
+  <div class="row row1">
+    <table class="table table-hover  table-borderless shadow p-3 mb-5 rounded">
+      <thead>
+      <tr class="text-center">
+        <th>Libelle</th>
+        <th>Référence</th>
+        <th>Date</th>
+        <th>Montant payé</th>
+        <th>Reste a payé</th>
+        <th>Montant totale</th>
+        <th>Fournisseur</th>
+        <th>Action</th>
+
+      </tr>
+      </thead>
+      <tbody *ngFor="let paiement of paiements index as i">
+      <tr class="text-center">
+        <td>{{paiement?.libelle}}</td>
+        <td>{{paiement?.reference}}</td>
+        <td>{{paiement?.date}}</td>
+        <td>{{paiement?.totalPay}}</td>
+        <td>{{paiement?.restAPay}}</td>
+        <td>{{paiement?.montantTotale}}</td>
+        <td>{{paiement?.fournisseur?.name}}</td>
+        <td class="">
+          <div class="btn-group">
+            <button class="btn btn-sm btn-outline-dark" (click)="payRest(paiement, i)">
+              <i class="fas fa-hand-holding-usd"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>

@@ -1,0 +1,163 @@
+<div class="container">
+  <div class="row shadow p-2 mb-5  rounded">
+
+    <div class="col-md-4">
+      <form class="form-inline my-2 my-lg-0 justify-content-center">
+        <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
+               (ngModelChange)="searchPaiement(searchInput.value)" type="search"
+               placeholder="Recherche paiement..">
+      </form>
+    </div>
+
+    <div class="col-md-8">
+      <div class="dropdown">
+        <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink"
+           data-bs-toggle="dropdown" aria-expanded="false" (click)="this.findAll()">
+          Type de paiement
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class=" btn dropdown-item" (click)="dataFilter(2)">Payer</a></li>
+          <li><a class="btn dropdown-item" (click)="dataFilter(3)">Reste a payé</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- table -->
+
+  <div class="row row1">
+    <table class="table table-hover  table-borderless shadow p-3 mb-5 rounded">
+      <thead>
+      <tr class="text-center">
+        <th>ID</th>
+        <th >Client</th>
+        <th>Date de paiement</th>
+        <th>Avance</th>
+        <th>Reste</th>
+        <th>Montant totale</th>
+        <th>Action</th>
+
+      </tr>
+      </thead>
+      <tbody *ngFor="let paiement of paiements index as i">
+      <tr class="text-center">
+        <td>{{paiement?.id}}</td>
+        <td>{{paiement?.client?.prenom }} {{ paiement?.client?.nom}}</td>
+        <td>{{paiement?.date}}</td>
+        <td>{{paiement?.totalPay}}</td>
+        <td>{{paiement?.restAPay}}</td>
+        <td>{{paiement?.montantFinale}}</td>
+        <td class="">
+          <div class="btn-group">
+            <button class="btn btn-sm btn-outline-info" (click)=" open(content, paiement)"><i class="fa fa-info"></i></button>
+            <button class="btn btn-sm btn-outline-dark" (click)="payRest(paiement,i )">
+              <i class="fas fa-hand-holding-usd"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Detail de paiement</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <div class="row">
+      <div class="col-md-12">
+        Monture
+      </div>
+    </div>
+    <div class="row">
+      <table class="table table-hover  table-borderless shadow p-3 mb-5 rounded">
+        <thead>
+        <tr class="text-center">
+          <th>ID</th>
+          <th>Marque</th>
+          <th>Series</th>
+          <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let mont of monture index as i">
+        <tr class="text-center">
+          <td>{{mont?.id}}</td>
+          <td>{{mont?.marque}}</td>
+          <td>{{mont?.series}}</td>
+          <td>{{mont?.price}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        Lunette soleil
+      </div>
+    </div>
+    <div class="row">
+      <table class="table table-hover  table-borderless shadow p-3 mb-5 rounded">
+        <thead>
+        <tr class="text-center">
+          <th>ID</th>
+          <th>Marque</th>
+          <th>Series</th>
+          <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let mont of lunettes index as i">
+        <tr class="text-center">
+          <td>{{mont?.id}}</td>
+          <td>{{mont?.marque}}</td>
+          <td>{{mont?.series}}</td>
+          <td>{{mont?.price}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        Verre
+      </div>
+    </div>
+
+    <div class="row">
+      <table class="table table-hover  table-borderless shadow p-3 mb-5 rounded">
+        <thead>
+        <tr class="text-center">
+          <th>ID</th>
+          <th>Marque</th>
+          <th>Traietemt</th>
+          <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center">
+          <td>{{verre?.id}}</td>
+          <td>{{verre?.marque}}</td>
+          <td>{{verre?.traitement}}</td>
+          <td>{{verre?.price}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    </div>
+  </div>
+</ng-template>
+

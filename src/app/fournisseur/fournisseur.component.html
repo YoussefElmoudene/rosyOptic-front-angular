@@ -1,1 +1,167 @@
-<p>fournisseur works!</p>
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <select class="form-select" aria-label="Fournisseurs" (change)="selectChangeHandler($event)">
+        <option selected>select a Fournisseur</option>
+        <option *ngFor="let item of fournisseurs" [value]="item.id">{{item.name}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <form class="shadow p-1 mb-5 rounded">
+        <div class="col-md-12 shadow p-1 mb-5 rounded">Monture</div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Marque" [(ngModel)]="monture.marque" name="marque">
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Séries" [(ngModel)]="monture.series" name="series">
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Modéle" [(ngModel)]="monture.modele" name="modele">
+          </div>
+          <div class=" col-md-6 col-lg-4">
+            <input type="number" class="form-control" placeholder="Prix" [(ngModel)]="monture.price" name="price">
+          </div>
+
+
+          <div class=" col-md-6 col-lg-4">
+            <input type="number" class="form-control" placeholder="Stockage" [(ngModel)]="monture.stock" name="stock">
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <input type="date" class="form-control" placeholder="Date de vente" [(ngModel)]="monture.buyingDate"
+                   name="buyingDate">
+          </div>
+
+
+          <div class="col-6">
+            <button class="btn save-btn" (click)="save_monture()">ajouter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="col-md-6">
+      <form class="shadow p-1 mb-5 rounded">
+        <div class="col-md-12 shadow p-1 mb-5 rounded">Lunettes soleil</div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Marque" [(ngModel)]="lunette.marque" name="marque">
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Séries" [(ngModel)]="lunette.series" name="series">
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Prix" [(ngModel)]="lunette.price" name="modele">
+          </div>
+
+
+          <div class=" col-md-6 col-lg-4">
+            <input type="number" class="form-control" placeholder="Stockage" [(ngModel)]="lunette.qte" name="stock">
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <input type="date" class="form-control" placeholder="Date de vente" [(ngModel)]="lunette.buyingDate"
+                   name="buyingDate">
+          </div>
+
+
+          <div class="col-6">
+            <button class="btn save-btn" (click)="save_lunnete()">ajouter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+      <form class="shadow p-1 mb-5 rounded">
+        <div class="col-md-12 shadow p-1 mb-5 rounded">Verres</div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Marque" [(ngModel)]="verre.marque" name="marque">
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Traitement" [(ngModel)]="verre.traitement"
+                   name="traitement">
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <input type="text" class="form-control" placeholder="Prix" [(ngModel)]="verre.price" name="price">
+          </div>
+
+
+          <div class="col-6">
+            <button class="btn save-btn" (click)="save_verre()">ajouter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <p>Totale a payé : </p> <span>{{this.totaleAPaye}} DH</span>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-2">
+      <button class="btn" (click)="open(content)">Payé</button>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!--Paiement Partie-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Paiement</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <input type="text" class="form-control" placeholder="Libelle" [(ngModel)]="paiement.libelle" name="libelle">
+
+    <input type="text" class="form-control" placeholder="Référence" [(ngModel)]="paiement.reference" name="reference">
+
+
+    <label for="date">Date</label>
+    <input id="date" type="date" class="form-control" placeholder="Date" [(ngModel)]="paiement.date" name="date">
+
+
+    <label for="montantTotale">Montant totale</label>
+    <input id="montantTotale" type="text" class="form-control" placeholder="Montant totale"
+           [(ngModel)]="paiement.montantTotale" name="montantTotale">
+
+
+    <label for="totalPay">Montant a payé</label>
+    <input id="totalPay" type="text" class="form-control" placeholder="Montant payé" [(ngModel)]="paiement.totalPay"
+           name="totalPay">
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click') ; save_paiement()">Save</button>
+  </div>
+</ng-template>

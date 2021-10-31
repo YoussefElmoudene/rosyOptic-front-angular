@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Paiement} from "../model/paiement";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
+import {Monture} from "../model/monture";
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,9 @@ export class PaiementService {
   }
 
 
-  public update(paiement: Paiement) {
+  public update(paiement: Paiement, index: number) {
     this.paiement = this.clone(paiement);
+    this._index = index;
   }
 
 
@@ -55,6 +57,7 @@ export class PaiementService {
     myClone.reference = paiement.reference;
     myClone.totalPay = paiement.totalPay;
     myClone.restAPay = paiement.restAPay;
+    myClone.fournisseur = paiement.fournisseur;
     return myClone;
   }
 
@@ -62,18 +65,32 @@ export class PaiementService {
     if (this.paiement.id == 0) {
       this.http.post(this.urlBase + this.url + '/', this.paiement).subscribe(
         data => {
-          this.paiements.push(this.clone(this.paiement));
+          if (data == -1) {
+            alert("Error: Selectionner un  fournisseur !");
+          } else {
+            this.paiements.push(this.clone(this.paiement));
+          }
         }, error => {
           console.log(error.error.message);
         });
     } else {
       this.http.post<number>(this.urlBase + this.url + '/', this.paiement).subscribe(
         data => {
-          this._paiements[this._index] = this.clone(this.paiement); // update
+          this.paiements[this._index] = this.clone(this.paiement); // update
         }, error => {
           console.log(error.error.message);
         });
     }
 
+  }
+
+  public findAll() {
+    this.http.get<Array<Paiement>>(this.urlBase + this.url + '/').subscribe(
+      data => {
+        this.paiements = data;
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 }

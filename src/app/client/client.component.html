@@ -1,4 +1,4 @@
-<div class="container shadow p-1 mb-5 rounded">
+<div class="container c1 shadow p-1 mb-5 rounded">
   <form>
     <div class="col-md-12 shadow p-1 mb-5 rounded">
       Client
@@ -77,7 +77,7 @@
       <div class="col-md-4 col-lg-3">
         <select class="form-control" [(ngModel)]="mesure.oeil" name="oeil">
           <option selected value="oeil droite">Oeil droite</option>
-          <option>Oeil gouche</option>
+          <option value="oeil gouche">Oeil gouche</option>
         </select>
       </div>
       <div class="col-md-4 col-lg-3">
@@ -89,19 +89,20 @@
 
 
       <div class="col-md-4 col-lg-3">
-        <input type="number" class="form-control" placeholder="Sphére" [(ngModel)]="mesure.sph" name="sph">
+        <input type="number" class="form-control" step="0.25" placeholder="Sphére" [(ngModel)]="mesure.sph" name="sph">
       </div>
 
       <div class="col-md-4 col-lg-3">
-        <input type="number" class="form-control" placeholder="Cylin" [(ngModel)]="mesure.cyl" name="cyl">
+        <input type="number" class="form-control" step="0.25" placeholder="Cylin" [(ngModel)]="mesure.cyl" name="cyl">
       </div>
 
       <div class="col-md-4 col-lg-3">
-        <input type="number" class="form-control" placeholder="Axe" [(ngModel)]="mesure.axe" name="axe">
+        <input type="number" class="form-control" step="1" placeholder="Axe" [(ngModel)]="mesure.axe" name="axe">
       </div>
 
       <div class="col-md-4 col-lg-3">
-        <input type="number" class="form-control" placeholder="Prisme" [(ngModel)]="mesure.prisme" name="prisme">
+        <input type="number" class="form-control" step="0.25" placeholder="Prisme" [(ngModel)]="mesure.prisme"
+               name="prisme">
       </div>
 
 
@@ -111,131 +112,309 @@
 
     </div>
   </form>
-
-
 </div>
 
 
-<div class="container">
+<!-------------------------------------------Article Section--------------------------------------------->
+
+
+<div class="container c1 shadow p-1 mb-5 rounded">
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <select class="form-select" aria-label="Fournisseurs" (change)="selectChangeHandler($event)">
+        <option selected>select a Client</option>
+        <option *ngFor="let item of clients" [value]="item.id">{{item.prenom }} {{item.nom}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
   <div class="row">
     <div class="col-md-6">
-      <div class="col-md-12 shadow p-1 mb-5 rounded">Monture</div>
-
-      <div class="row div-search">
-        <div class="col-6 ">
-          <input class="form-control mr-sm-2" type="search" placeholder="Recherche des montures.." aria-label="Search">
-        </div>
-        <div class="col-1"></div>
-        <div class="col-5">
-          <button class="btn "> Listes des montures</button>
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-inline my-2 my-lg-0 justify-content-center">
+            <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
+                   (ngModelChange)="searchMonture(searchInput.value)" type="search" placeholder="Recherche monture...">
+          </form>
         </div>
       </div>
-
-      <table class="table table-hover table-striped">
-        <thead class="table-borderless monTable">
-        <tr class="text-center">
-          <th> Marque</th>
-          <th>Séries</th>
-          <th>Prix</th>
-          <th>Stockage</th>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Marque</th>
+          <th scope="col">Séries</th>
+          <th scope="col">Prix</th>
+          <th scope="col">Stockage</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center">
-          <td>4544</td>
-          <td>ypussef</td>
-          <td>454</td>
-          <td>10</td>
-        </tr>
-        <tr class="text-center">
-          <td>4544</td>
-          <td>ypussef</td>
-          <td>454</td>
-          <td>10</td>
+        <tr *ngFor="let monture of montures | slice: (page-1) * pageSize : page * pageSize"
+            [hidden]="monture.stock ==0">
+          <th scope="row">{{ monture?.marque }}</th>
+          <td>{{monture?.series}}</td>
+          <td>{{monture?.price}}</td>
+          <td>{{monture?.stock}}</td>
+          <td class="">
+            <div class="btn-group">
+              <button class=" btn-sm btn-outline-dark" (click)="calculeTotale(monture , 1)"><i
+                class="far fa-check-square"></i></button>
+            </div>
+          </td>
         </tr>
         </tbody>
       </table>
-    </div>
-    <div class="col-md-6">
-      <div class="col-md-12 shadow p-1 mb-5 rounded">Verres</div>
 
-      <div class="row div-search">
-        <div class="col-6 ">
-          <input class="form-control mr-sm-2" type="search" placeholder="Recherche des verres.." aria-label="Search">
-        </div>
-        <div class="col-2"></div>
-        <div class="col-4">
-          <button class="btn "> Listes des verres</button>
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [collectionSize]="this.montures.length">
+        </ngb-pagination>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-inline my-2 my-lg-0 justify-content-center">
+            <input name="searchTerm" #searchInput2="ngModel" class="form-control mr-sm-2" ngModel
+                   (ngModelChange)="searchVerre(searchInput2.value)" type="search" placeholder="Recherche verre...">
+          </form>
         </div>
       </div>
-
-
-      <table class="table table-hover table-striped">
-        <thead class="table-borderless monTable">
-        <tr class="text-center">
-          <th> Marque</th>
-          <th>Séries</th>
-          <th>Prix</th>
-          <th>Stockage</th>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Marque</th>
+          <th scope="col">Traitement</th>
+          <th scope="col">Prix</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center">
-          <td>4544</td>
-          <td>ypussef</td>
-          <td>454</td>
-          <td>10</td>
-        </tr>
-        <tr class="text-center">
-          <td>4544</td>
-          <td>ypussef</td>
-          <td>454</td>
-          <td>10</td>
+        <tr *ngFor="let verre of verres | slice: (page-1) * pageSize : page * pageSize">
+          <th scope="row">{{ verre?.marque }}</th>
+          <td>{{verre?.traitement}}</td>
+          <td>{{verre?.price}}</td>
+          <td class="">
+            <div class="btn-group">
+              <button class="btn-sm btn-outline-dark" (click)="calculeTotale(verre , 2)"><i
+                class="far fa-check-square"></i></button>
+            </div>
+          </td>
         </tr>
         </tbody>
       </table>
+
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [collectionSize]="this.montures.length">
+        </ngb-pagination>
+      </div>
     </div>
   </div>
-</div>
 
-
-<div class="container">
   <div class="row">
-    <div class="col-md-12 shadow p-1 mb-5 rounded">Lunette soleil</div>
-
-    <div class="row lunette-row">
-      <div class="col-6 ">
-        <input class="form-control mr-sm-2" type="search" placeholder="Recherche des lunettes.." aria-label="Search">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-inline my-2 my-lg-0 justify-content-center">
+            <input name="searchTerm" #searchInput3="ngModel" class="form-control mr-sm-2" ngModel
+                   (ngModelChange)="searchLunette(searchInput3.value)" type="search" placeholder="Recherche lunette...">
+          </form>
+        </div>
       </div>
-      <div class="col-1"></div>
-      <div class="col-5">
-        <button class="btn "> Listes des lunettes soleil</button>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Marque</th>
+          <th scope="col">Séries</th>
+          <th scope="col">Prix</th>
+          <th scope="col">Stockage</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let lunette of lunettes | slice: (page-1) * pageSize : page * pageSize">
+          <th scope="row">{{ lunette?.marque }}</th>
+          <td>{{lunette?.series}}</td>
+          <td>{{lunette?.price}}</td>
+          <td>{{lunette?.qte}}</td>
+          <td class="">
+            <div class="btn-group">
+              <button class="btn-sm btn-outline-dark" (click)="calculeTotale(lunette , 3)"><i
+                class="far fa-check-square"></i></button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [collectionSize]="this.montures.length">
+        </ngb-pagination>
       </div>
     </div>
-
-    <table class="table table-hover table-striped">
-      <thead class="table-borderless monTable">
-      <tr class="text-center">
-        <th> Marque</th>
-        <th>Séries</th>
-        <th>Prix</th>
-        <th>Stockage</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="text-center">
-        <td>4544</td>
-        <td>ypussef</td>
-        <td>454</td>
-        <td>10</td>
-      </tr>
-      <tr class="text-center">
-        <td>4544</td>
-        <td>ypussef</td>
-        <td>454</td>
-        <td>10</td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="col-md-2"></div>
   </div>
+
+  <div class="row">
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <p>Totale a payé : </p> <span>{{this.paiement.montantTotale}} DH</span>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-2">
+      <button class="btn" (click)="open(content)">Payé</button>
+    </div>
+  </div>
+
+
 </div>
+
+
+<!-----------------------------------Paiement Partie--------------------------------------------------->
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Paiement</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <input type="text" class="form-control" placeholder="Référence" [(ngModel)]="paiement.reference" name="reference">
+
+
+    <label for="date">Date</label>
+    <input id="date" type="date" class="form-control" placeholder="Date" [(ngModel)]="paiement.date" name="date">
+
+
+    <label for="montantTotale">Montant totale</label>
+    <input id="montantTotale" type="text" class="form-control" placeholder="Montant totale"
+           [(ngModel)]="paiement.montantTotale" name="montantTotale">
+
+    <!--    <label for="remise">Remise</label>-->
+    <!--    <input id="remise" type="text" class="form-control" placeholder="Montant totale"-->
+    <!--           [(ngModel)]="paiement.remise" name="montantTotale">-->
+
+    <div>
+      <label for="remise">Remise</label>
+      <select id="remise" class="form-control" [(ngModel)]="paiement.remise" name="remise"
+              (change)="calculemontantFinale(paiement.remise)">
+        <option value="0">0%</option>
+        <option value="0.1">10%</option>
+        <option value="0.15">15%</option>
+        <option value="0.2">20%</option>
+        <option value="0.25">25%</option>
+        <option value="0.3">30%</option>
+        <option value="0.35">35%</option>
+      </select>
+    </div>
+
+
+    <label for="montantFinale">Montant finale</label>
+    <input disabled id="montantFinale" type="number" class="form-control" placeholder="Avance"
+           [(ngModel)]="paiement.montantFinale"
+           name="montantFinale">
+
+
+    <label for="totalPay">Avance</label>
+    <input id="totalPay" type="text" class="form-control" placeholder="Avance" [(ngModel)]="paiement.totalPay"
+           name="totalPay">
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click') ; save_paiement(); open1(content1)">
+      Save
+    </button>
+  </div>
+</ng-template>
+
+
+<!-----------------------------------print section------------------------------------->
+
+
+<ng-template #content1 let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button class="btn-outline-dark" ngxPrint printSectionId="print" [useExistingCss]="true"
+            printTitle="fiche client"
+    >
+      <i class="fas fa-print"></i></button>    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div id="print" class="container1 container">
+      <div class="row header-text">
+        <div class="col-6 fiche-client-img">
+          <img src="./images/logo3.png" alt="">
+        </div>
+        <div class="col-6 fiche-client">
+          <p class="" id="modal-basic-title1">Fiche de client</p>
+        </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-4"><label>Nom :</label>  {{client_print?.nom}}</div>
+        <div class="col-4"><label>Prénom :</label>  {{client_print?.prenom}}</div>
+        <div class="col-4"></div>
+
+        <div class="col-4"><label>Date de visite :</label> {{client_print?.dateVisit | date: 'dd/MM/yyyy'}} </div>
+        <div class="col-4"><label>Localité :</label> {{client_print?.localite}} </div>
+        <div class="col-4"></div>
+
+
+        <div class="col-4"><label>Montant initiale :</label> {{paiement_print.montantTotale }}DH </div>
+        <div class="col-4"><label>Remise :</label> {{paiement_print.remise }}  </div>
+        <div class="col-4"><label>Montant finale :</label> {{paiement_print.montantFinale }} DH</div>
+
+
+
+        <div class="col-4"><label>Avance :</label> {{paiement_print.totalPay }}DH </div>
+        <div class="col-4"><label>Reste :</label> {{paiement_print.restAPay }}DH </div>
+        <div class="col-4"></div>
+
+      </div>
+
+
+      <div class="col-12">
+        <h4>Mesures</h4>
+      </div>
+      <div class="row" *ngFor="let mesure of mesures">
+        <div class="col-2"><label>{{mesure.oeil}}</label></div>
+        <div class="col-2"><label>Axe :</label>  {{mesure.axe}}</div>
+        <div class="col-2"><label>Cyl :</label> {{mesure.cyl}}</div>
+        <div class="col-2"><label>Sphére :</label> {{mesure.sph}} </div>
+        <div class="col-2"><label>Prisme :</label>{{mesure.prisme}} </div>
+      </div>
+
+
+      <div class="row bottom-text" style="margin-top: 5%">
+        <div class="col-3"><i class="fas fa-glasses"></i>RosyVision</div>
+        <div class="col-6"></div>
+        <div class="col-3" style="text-align: end;"><i class="fas fa-glasses"></i>RosyVision</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+  </div>
+</ng-template>

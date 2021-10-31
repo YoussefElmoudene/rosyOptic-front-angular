@@ -5,25 +5,30 @@
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
             aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <i class="fas fa-bars"></i>
+<!--      <span class="navbar-toggler-icon"></span>-->
+<!--      <mat-icon>menu</mat-icon>-->
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
 
       <ul class="navbar-nav  ms-auto  mb-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="client-list">Client</a>
+          <a class="nav-link active" aria-current="page" routerLink="client-list">Clients</a>
         </li>
 
         <li class="nav-item ">
-          <a class="nav-link "  routerLink="fournisseur" >Fournisseur</a>
+          <a class="nav-link "  routerLink="fournisseur-list" >Fournisseurs</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link "  routerLink="articles" >Articles</a>
         </li>
 
         <li class="dropdown nav-item " dropdown> <!-- {1} -->
-          <a dropdownToggle role="button" class="nav-link"> Dropdown <span class="caret"></span></a>
+          <a dropdownToggle role="button" class="nav-link"> Paiement <span class="caret"></span></a>
           <ul *dropdownMenu class="dropdown-menu"> <!-- {3} -->
-            <li><a class="nav-link" routerLink="client" >Client</a></li>
-            <li><a class="nav-link" >Another action</a></li>
+            <li><a class="nav-link" routerLink="paiement-client" >Client</a></li>
+            <li><a class="nav-link" routerLink="paiement-fournisseur" >Fournisseur</a></li>
           </ul>
         </li>
 

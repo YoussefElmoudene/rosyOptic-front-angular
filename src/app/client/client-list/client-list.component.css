@@ -36,3 +36,63 @@ thead{
 tbody{
   background-color: #d6e2e9;
 }
+.ng-template{
+  background-color:#ffd166;
+}
+          /*ng-template*/
+.header-text{
+  text-align: center !important;
+  color: #000000;
+  background-color:#2a9d8f;
+  font-family: 'Abril Fatface', cursive;
+  margin-bottom: -10px !important;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.bottom-text{
+  color: #000000;
+  background-color:#2a9d8f;
+  font-family: 'Rampart One', cursive;
+  margin-bottom: -10px !important;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+.modal-body{
+  font-family: 'Roboto', sans-serif;
+}
+
+/*#modal-basic-title{*/
+/*  margin-left: 44%;*/
+/*}*/
+label{
+  font-family: 'Righteous', cursive;
+  /*font-weight: bold;*/
+  margin-right: 5px;
+}
+.col-12{
+  text-align: center !important;
+  color: #000000;
+  background-color:#ffcb69;
+  font-family: 'Abril Fatface', cursive;
+  margin:2% 0;
+  border-radius: 9px 9px 9px 9px;
+  -moz-border-radius: 9px 9px 9px 9px;
+  -webkit-border-radius: 9px 9px 9px 9px;
+  border: 0 solid #000000;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.row {
+  /*margin: 1% 0;*/
+}
+.modal-body > .container{
+  /*background-color:#ffcb69;*/
+  border-radius: 9px 9px 9px 9px;
+  -moz-border-radius: 9px 9px 9px 9px;
+  -webkit-border-radius: 9px 9px 9px 9px;
+  border: 0 solid #000000;
+}

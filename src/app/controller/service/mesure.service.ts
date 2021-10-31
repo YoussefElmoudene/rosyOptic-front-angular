@@ -3,6 +3,7 @@ import {Mesure} from "../model/mesure.model";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {DatePipe} from "@angular/common";
+import {Client} from "../model/client";
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +76,16 @@ export class MesureService {
         });
     }
     this.mesure = new Mesure();
+  }
+
+  public findBYClient(client:Client){
+    this.http.get<Array<Mesure>>(this.urlBase + this.url + '/nom/' + client.nom + '/prenom/' + client.prenom).subscribe(
+      data => {
+        this.mesures = data;
+      },error => {
+        console.log(error);
+      }
+    )
   }
 
 }

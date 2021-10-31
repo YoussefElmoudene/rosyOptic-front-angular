@@ -8,7 +8,7 @@ export class Fournisseur {
   public  email:string;
   public  telephone:string;
   public  fix:string;
-  public  remarques:string;
+  public  remarques:string | undefined;
 
 
   constructor() {
@@ -21,6 +21,5 @@ export class Fournisseur {
     this.email = "";
     this.telephone = "";
     this.fix = "";
-    this.remarques = "";
   }
 }

@@ -1,0 +1,94 @@
+.container {
+  /*background: #ffd166;*/
+}
+
+.col-md-12 {
+  /*margin: -15px 0 0 0;*/
+  text-align: center;
+  background-color: #6c757d;
+  color: #f1f1f1;
+  letter-spacing: 4px;
+  font-size: larger !important;
+  font-weight: bold;
+  font-family: 'Lobster', cursive;
+  /*font-family: 'Montserrat', sans-serif;*/
+  /*font-family: 'Stick No Bills', sans-serif;*/
+
+}
+
+.row {
+  margin: 0 0 2% 0;
+
+}
+
+.col-md-6 {
+  -webkit-box-shadow: -1px 0px 22px 0px rgba(0, 0, 0, 0.84);
+  -moz-box-shadow: -1px 0px 22px 0px rgba(0, 0, 0, 0.84);
+  box-shadow: -1px 0px 22px 0px #6c757d;
+}
+
+.div-search {
+  /*background-color: #118ab2;*/
+  margin-bottom: 4px;
+  margin-top: -43px;
+}
+
+.p-2 {
+  background-color: #118ab2;
+  margin-top: 5%;
+  /*-webkit-box-shadow: 2px -1px 49px 10px rgba(105,112,138,1);*/
+  /*-moz-box-shadow: 2px -1px 49px 10px rgba(105,112,138,1);*/
+  /*box-shadow: 2px -1px 49px 10px rgba(105,112,138,1);*/
+}
+
+.p-2 > .col-md-8 > button {
+  float: right;
+  color: #ffd166;
+  border: 1px solid #ffd166;
+}
+
+.p-2 > .col-md-8 > button:hover {
+  background-color: #ffd166;
+  color: #000;
+}
+
+input {
+  background-color: #073b4c !important;
+  border-color: #118ab2 !important;
+  color: #ffd166 !important;
+}
+
+.row1 {
+  margin-top: -3%;
+  font-size: small;
+}
+
+table {
+  color: #011627;
+  font-weight: bold;
+}
+
+thead {
+  background-color: #118ab2;
+  color: #ffd166;
+}
+
+tbody {
+  background-color: #d6e2e9;
+}
+
+.btn {
+  background: transparent;
+  border: 2px solid #118ab2;
+  color: #118ab2;
+  float: right !important;
+}
+
+.btn:hover {
+  background-color: #118ab2; /*#f1f1f1  #43502c  */
+  color: #ffd166;
+}
+
+table {
+  table-layout: fixed;
+}

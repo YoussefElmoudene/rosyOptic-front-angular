@@ -1,0 +1,122 @@
+<div class="container" style="    margin: 5% 22% 3% 0;">
+  <div class="row">
+    <div class="col-md-10"></div>
+    <button class="btn col-2" routerLink="fournisseur">nouvel article ?</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+
+    <div class="col-md-6">
+      <div class="col-md-12 shadow p-1 mb-5 rounded">Monture</div>
+
+      <div class="row div-search">
+        <div class="col-6 ">
+          <input class="form-control mr-sm-2" type="search" placeholder="Recherche des montures.." aria-label="Search">
+        </div>
+        <div class="col-1"></div>
+        <div class="col-5">
+          <!--          <button class="btn "> Listes des montures</button>-->
+        </div>
+      </div>
+
+      <table class="table table-hover table-striped">
+        <thead class="table-borderless monTable">
+        <tr class="text-center">
+          <th> Marque</th>
+          <th>Séries</th>
+          <th>Prix</th>
+          <th>Stockage</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let monture of montures" class="text-center">
+          <td>{{monture?.marque}}</td>
+          <td>{{monture?.series}}</td>
+          <td>{{monture?.price}}</td>
+          <td>{{monture?.stock}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="col-md-12 shadow p-1 mb-5 rounded">Verres</div>
+
+      <div class="row div-search">
+        <div class="col-6 ">
+          <input class="form-control mr-sm-2" type="search" placeholder="Recherche des verres.." aria-label="Search">
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4">
+          <!--          <button class="btn "> Listes des verres</button>-->
+        </div>
+      </div>
+      <table class="table table-hover table-striped">
+        <thead class="table-borderless monTable">
+        <tr class="text-center">
+          <th> Marque</th>
+          <th>Traitement</th>
+          <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let verre of verres" class="text-center">
+          <td>{{verre?.marque}}</td>
+          <td>{{verre?.traitement}}</td>
+          <td>{{verre?.price}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 shadow p-1 mb-5 rounded" style="
+  -webkit-box-shadow: -1px 0px 22px 0px rgba(0,0,0,0.84);
+  -moz-box-shadow: -1px 0px 22px 0px rgba(0,0,0,0.84);
+  box-shadow: -1px 0px 22px 0px #6c757d;">
+      Lunette soleil
+    </div>
+
+    <div class="row div-search lunette-row">
+      <div class="col-6 ">
+        <input class="form-control mr-sm-2" type="search" placeholder="Recherche des lunettes.." aria-label="Search">
+      </div>
+      <div class="col-1"></div>
+      <div class="col-5">
+        <!--        <button class="btn "> Listes des lunettes soleil</button>-->
+      </div>
+    </div>
+
+    <table class="table table-hover table-striped">
+      <thead class="table-borderless monTable">
+      <tr class="text-center">
+        <th> Marque</th>
+        <th>Séries</th>
+        <th>Prix</th>
+        <th>Stockage</th>
+        <th>Fournisseur</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let lunette of lunettes" class="text-center">
+        <td>{{lunette?.marque}}</td>
+        <td>{{lunette?.series}}</td>
+        <td>{{lunette?.price}}</td>
+        <td>{{lunette?.qte}}</td>
+        <td>{{lunette?.fournisseur?.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
