@@ -6,7 +6,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8090/',
+  apiUrl: 'http://localhost:8036/',
 };
 
 /*
